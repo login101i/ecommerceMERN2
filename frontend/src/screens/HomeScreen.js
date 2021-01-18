@@ -10,6 +10,8 @@ import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
 
+
+
 const HomeScreen = ({ match }) => {
     const keyword = match.params.keyword
 
@@ -20,39 +22,52 @@ const HomeScreen = ({ match }) => {
     const productList = useSelector((state) => state.productList)
     const { loading, error, products, page, pages } = productList
 
+    const cart = useSelector((state) => state.cart)
+    const { cartItems } = cart
+
     useEffect(() => {
         dispatch(listProducts(keyword, pageNumber))
     }, [dispatch, keyword, pageNumber])
 
+    console.log(cartItems)
     return (
         <>
             <Meta />
             {!keyword ? (
-                <ProductCarousel />
+                <div className="carousel">
+                    <ProductCarousel />
+                </div>
+
             ) : (
                     <Link to='/' className='btn btn-light'>
-                        Go Back
+                        Powrót do produktów
                     </Link>
                 )}
-            <h1>Wszystkie produkty</h1>
+            <h1 className='centerThis' >Wszystkie produkty</h1>
             {loading ? (
                 <Loader />
             ) : error ? (
                 <Message variant='danger'>{error}</Message>
             ) : (
                         <>
-                            <Row>
-                                {products.map((product) => (
-                                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                        <Product product={product} />
-                                    </Col>
-                                ))}
-                            </Row>
-                            <Paginate
-                                pages={pages}
-                                page={page}
-                                keyword={keyword ? keyword : ''}
-                            />
+                            <div className="centerThis ">
+
+                                <Row>
+                                    {products.map((product) => (
+                                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                            <Product product={product} />
+                                        </Col>
+                                    ))}
+                                </Row >
+                                <Row className="marginTop ">
+                                    <Paginate
+                                        pages={pages}
+                                        page={page}
+                                        keyword={keyword ? keyword : ''}
+                                    />
+                                </Row>
+
+                            </div>
                         </>
                     )}
         </>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, Container, NavDropdown, Col } from 'react-bootstrap'
 import SearchBox from './SearchBox'
 import { logout } from '../actions/userActions'
 
@@ -17,20 +17,33 @@ const Header = () => {
         console.log("wylogowano")
     }
 
+
+    const cart = useSelector((state) => state.cart)
+    const { cartItems } = cart
+
     return (
         <header>
-            <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
-                <Container>
-                    <LinkContainer to='/'>
-                        <Navbar.Brand>ProShop</Navbar.Brand>
+            <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect >
+                <Container className="mr-auto">
+                    <LinkContainer to='/' className="brand">
+                        <Navbar.Brand>MkruShop</Navbar.Brand>
                     </LinkContainer>
+                    <Route render={({ history }) => <SearchBox className="search " history={history} />} />
+
+
+
+
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav'>
-                        <Route render={({ history }) => <SearchBox history={history} />} />
-                        <Nav className='ml-auto'>
+
+                        <Nav className="ml-auto">
                             <LinkContainer to='/cart'>
-                                <Nav.Link>
-                                    <i className='fas fa-shopping-cart'></i> Cart
+                                <Nav.Link >
+                                    <i className='fas fa-shopping-cart cartIcon' style={{ color: "white" }}>
+                                        <div className="itemsInCart">
+                                            {cartItems.length}
+                                        </div>
+                                    </i> Koszyk
                 </Nav.Link>
                             </LinkContainer>
                             {userInfo ? (
@@ -45,7 +58,7 @@ const Header = () => {
                             ) : (
                                     <LinkContainer to='/login'>
                                         <Nav.Link>
-                                            <i className='fas fa-user'></i> Zaloguj się
+                                            <i className='fas fa-user' style={{ color: "white" }}></i> Zaloguj się
                   </Nav.Link>
                                     </LinkContainer>
                                 )}

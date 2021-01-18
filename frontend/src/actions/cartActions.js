@@ -4,6 +4,7 @@ import {
     CART_REMOVE_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD,
+    CART_CLEAR_ITEMS
 } from '../constants/cartConstants'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -31,6 +32,18 @@ export const removeFromCart = (id) => (dispatch, getState) => {
     })
 
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
+
+export const clearCart = (data) => (dispatch,getState) => {
+    dispatch({
+        type: CART_CLEAR_ITEMS,
+        payload:data
+       
+    })
+
+    localStorage.removeItem('cartItems')
+    console.log("usunięto produkty z koszyka i z pamięci podręcznej.")
+
 }
 
 export const saveShippingAddress = (data) => (dispatch) => {

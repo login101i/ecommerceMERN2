@@ -19,9 +19,6 @@ const ProductScreen = ({ history, match }) => {
     const dispatch = useDispatch()
 
 
-
-
-
     const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
@@ -164,8 +161,8 @@ const ProductScreen = ({ history, match }) => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={6}>
-                                    <h2>Recenzje</h2>
+                                <Col md={6} className="my-3">
+                                    <h1>Recenzje</h1>
                                     {product.reviews.length === 0 && <Message>Brak recenzji</Message>}
                                     <ListGroup variant='flush'>
                                         {product.reviews.map((review) => (
@@ -199,7 +196,7 @@ const ProductScreen = ({ history, match }) => {
                                                             <option value=''>Wybierz ocenę...</option>
                                                             <option value='1'>1 - Bardzo zły</option>
                                                             <option value='2'>2 - zły</option>
-                                                            <option value='3'>3 - Good</option>
+                                                            <option value='3'>3 - Dobry</option>
                                                             <option value='4'>4 - Bardzo dobry</option>
                                                             <option value='5'>5 - Wyśmienity</option>
                                                         </Form.Control>
